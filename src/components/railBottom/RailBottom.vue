@@ -1,5 +1,9 @@
 <template>
   <div class="rail-container">
+    <ZoomControl
+      :paper-manager="paperManager"
+    />
+
     <UndoRedoControl
       :node-types="nodeTypes"
       :is-rendering="isRendering"
@@ -23,10 +27,12 @@
 
 <script>
 import UndoRedoControl from '@/components/railBottom/undoRedoControl/UndoRedoControl.vue';
+import ZoomControl from '@/components/railBottom/zoomControl/ZoomControl.vue';
 
 export default {
   components: {
     UndoRedoControl,
+    ZoomControl,
   },
   props: {
     nodeTypes: [],
