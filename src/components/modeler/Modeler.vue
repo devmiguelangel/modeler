@@ -111,6 +111,14 @@
         @default-flow="toggleDefaultFlow"
         @shape-resize="shapeResize"
       />
+
+      <RailBottom
+        :node-types="nodeTypes"
+        :is-rendering="isRendering"
+        @load-xml="loadXML"
+        @clearSelection="clearSelection"
+      />
+
       <selection
         v-if="paper"
         ref="selector"
@@ -170,6 +178,7 @@ import { getInvalidNodes } from '@/components/modeler/modelerUtils';
 import { NodeMigrator } from '@/components/modeler/NodeMigrator';
 import addLoopCharacteristics from '@/setup/addLoopCharacteristics';
 import cloneSelection from '../../mixins/cloneSelection';
+import RailBottom from '@/components/railBottom/RailBottom.vue';
 
 import ProcessmakerModelerGenericFlow from '@/components/nodes/genericFlow/genericFlow';
 
@@ -183,6 +192,7 @@ export default {
     MiniPaper,
     ProcessmakerModelerGenericFlow,
     Selection,
+    RailBottom,
   },
   props: {
     owner: Object,

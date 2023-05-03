@@ -1,0 +1,18 @@
+version: '3.8'
+
+volumes:
+  node_modules: {}
+
+services:
+  modeler:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: pm4-modeler
+    container_name: pm4_modeler
+    volumes:
+      - ./:/modeler
+      - node_modules:/modeler/node_modules
+    ports:
+      - "8080:8080"
+    tty: true
