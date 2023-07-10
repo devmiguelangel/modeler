@@ -371,7 +371,15 @@ export function assertBoundaryEventIsCloseToTask() {
 export function addNodeTypeToPaper(nodePosition, genericNode, nodeToSwitchTo) {
   clickAndDropElement(genericNode, nodePosition);
   waitToRenderAllShapes();
+  cy.get('[data-test=select-type-dropdown]').click();
   cy.get(`[data-test=${nodeToSwitchTo}]`).click();
+  // get the .modal element and if it is visible call the modalConfirm function
+  cy.get('.modal').then($modal => {
+    if ($modal.is(':visible')) {
+      modalConfirm();
+    }
+  });
+
   cy.wait(300);
 }
 
