@@ -24,6 +24,17 @@ export function setBoundaryEvent(nodeType, taskPosition, taskType = nodeTypes.ta
   const dataTest = nodeType.replace('processmaker-modeler-', 'add-');
   waitToRenderAllShapes();
 
+  /* const existModal = Cypress.$('.modal').length === 1;
+
+  if (existModal) {
+    modalConfirm();
+  } */
+  cy.get('body').then($body => {
+    if ($body.find('.modal').length > 0) {
+      modalConfirm();
+    }
+  });
+
   getElementAtPosition(taskPosition, taskType).click({force: true});
 
   cy.get('[data-test="boundary-event-dropdown"]').click({force: true});
@@ -373,9 +384,9 @@ export function addNodeTypeToPaper(nodePosition, genericNode, nodeToSwitchTo) {
   waitToRenderAllShapes();
   cy.get('[data-test=select-type-dropdown]').click();
   cy.get(`[data-test=${nodeToSwitchTo}]`).click();
-  // get the .modal element and if it is visible call the modalConfirm function
-  cy.get('.modal').then($modal => {
-    if ($modal.is(':visible')) {
+
+  cy.get('body').then($body => {
+    if ($body.find('.modal').length > 0) {
       modalConfirm();
     }
   });

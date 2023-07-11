@@ -22,7 +22,7 @@ describe('Boundary Conditional Event', () => {
     setBoundaryEvent(nodeTypes.boundaryConditionalEvent, taskPosition);
   });
 
-  it.skip('set condition on Boundary Conditional Events', () => {
+  it('set condition on Boundary Conditional Events', () => {
     toggleInspector();
 
     const expectedBpmn = '<bpmn:boundaryEvent id="node_11" name="Boundary Conditional Event" attachedToRef="node_2"><bpmn:conditionalEventDefinition><bpmn:condition xsi:type="bpmn:tFormalExpression">form_input_1=="one"</bpmn:condition></bpmn:conditionalEventDefinition></bpmn:boundaryEvent>';
@@ -37,7 +37,7 @@ describe('Boundary Conditional Event', () => {
       });
   });
 
-  it.skip('can toggle interrupting on Boundary Conditional Events', () => {
+  it('can toggle interrupting on Boundary Conditional Events', () => {
     const interrupting = '[name=cancelActivity]';
     cy.get(interrupting).should('be.checked');
 
