@@ -6,7 +6,7 @@ const renderTime = 300;
 
 export function getTinyMceEditor() {
   return cy
-    .get('iframe#documentation-editor_ifr')
+    .get('#collapse-documentation-accordion iframe.tox-edit-area__iframe')
     .its('0.contentDocument')
     .its('body')
     .then(cy.wrap);
@@ -14,7 +14,7 @@ export function getTinyMceEditor() {
 
 export function getTinyMceEditorInModal() {
   return cy
-    .get('iframe#documentation-editor-modal_ifr')
+    .get('#documentation-modal___BV_modal_body_ iframe.tox-edit-area__iframe')
     .its('0.contentDocument')
     .its('body')
     .then(cy.wrap);
