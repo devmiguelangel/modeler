@@ -167,9 +167,9 @@ export function waitToRenderNodeUpdates() {
   cy.wait(saveDebounce);
 }
 
-export function connectNodesWithFlow(flowType, startPosition, endPosition, clickPosition = 'center') {
+export function connectNodesWithFlow(flowType, startPosition, endPosition, clickPosition = 'center', startComponentType = null) {
   const mouseEvent = { clientX: startPosition.x , clientY: startPosition.y };
-  return getElementAtPosition(startPosition)
+  return getElementAtPosition(startPosition, startComponentType)
     .trigger('mousedown', mouseEvent, { force: true })
     .trigger('mouseup', mouseEvent,  { force: true })
     .then($element => {
@@ -213,9 +213,17 @@ export function moveElement(elementPosition, x, y, componentType) {
   return cy.window().its('store.state.paper').then(paper => {
     const newPosition = paper.localToPagePoint(x, y);
 
+    const mouseMoveOptions = {
+      clientX: newPosition.x,
+      clientY: newPosition.y,
+      force: true,
+    };
+
     return getElementAtPosition(elementPosition, componentType)
+      .trigger('mouseover')
       .trigger('mousedown', { which: 1, force: true })
-      .trigger('mousemove', { clientX: newPosition.x, clientY: newPosition.y, force: true })
+      .trigger('mousemove', mouseMoveOptions)
+      .trigger('mousemove', mouseMoveOptions)
       .trigger('mouseup', { force: true });
   });
 }
@@ -238,8 +246,10 @@ export function moveElementRelativeTo(elementPosition, x, y, componentType) {
           };
 
           cy.wrap($element)
+            .trigger('mouseover')
             .trigger('mousedown', 'topLeft', { which: 1, force: true })
             .trigger('mousemove', 'topLeft', mouseMoveOptions)
+            .trigger('mousemove', mouseMoveOptions)
             .trigger('mouseup', 'topLeft', { force: true });
         });
 
@@ -477,7 +487,7 @@ export function clickAndDropElement(node, position, nodeChild = null) {
 
 export function toggleInspector() {
   cy.get('[data-cy=inspector-close-button]').then(($el) => {
-    if ($el.length) return cy.get('[data-cy=inspector-button]').click();
+    if (!$el.is(':visible')) return cy.get('[data-cy=inspector-button]').click();
     return cy.get('[data-cy=inspector-close-button]').click();
   });
 }

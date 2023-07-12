@@ -19,10 +19,10 @@ import { CommonBoundaryEventBehaviour } from '../support/BoundaryEventCommonBeha
 
 describe('Boundary Timer Event', { scrollBehavior: false }, () => {
   it('update boundary timer event properties element', () => {
-    const taskPosition = { x: 200, y: 200 };
+    const taskPosition = { x: 300, y: 200 };
     clickAndDropElement(nodeTypes.task, taskPosition);
 
-    const boundaryTimerEventPosition = { x: 260, y: 260 };
+    const boundaryTimerEventPosition = { x: 360, y: 260 };
     setBoundaryEvent(nodeTypes.boundaryTimerEvent, taskPosition);
     moveElement(taskPosition, boundaryTimerEventPosition.x, boundaryTimerEventPosition.y);
     cy.wait(500);
@@ -107,10 +107,10 @@ describe('Boundary Timer Event', { scrollBehavior: false }, () => {
   });
 
   it('can toggle interrupting on Boundary Timer Events', () => {
-    const taskPosition = { x: 200, y: 200 };
+    const taskPosition = { x: 300, y: 200 };
     clickAndDropElement(nodeTypes.task, taskPosition);
 
-    const boundaryTimerEventPosition = { x: 260, y: 260 };
+    const boundaryTimerEventPosition = { x: 360, y: 260 };
     setBoundaryEvent(nodeTypes.boundaryTimerEvent, taskPosition);
     moveElement(taskPosition, boundaryTimerEventPosition.x, boundaryTimerEventPosition.y);
 
@@ -172,10 +172,7 @@ describe('Boundary Timer Event', { scrollBehavior: false }, () => {
     cy.get(interrupting).should('not.be.checked');
   });
 
-  /**
-   * TODO: This test is currently failing due to a bug in the boundary event move.
-   */
-  it.skip('moves to another task when dragged over', () => {
+  it('moves to another task when dragged over', () => {
     const taskPosition = { x: 300, y: 300 };
     const numberOfBoundaryTimerEventsAdded = 1;
     clickAndDropElement(nodeTypes.task, taskPosition);
@@ -196,13 +193,15 @@ describe('Boundary Timer Event', { scrollBehavior: false }, () => {
     getPositionInPaperCoords(task2Position).then(newPosition => {
       cy.get(boundaryTimerEventSelector).then($boundaryEvent => {
         cy.wrap($boundaryEvent)
+          .trigger('mouseover')
           .trigger('mousedown', { which: 1, force: true })
+          .trigger('mousemove', { clientX: newPosition.x, clientY: newPosition.y, force: true })
           .trigger('mousemove', { clientX: newPosition.x, clientY: newPosition.y, force: true })
           .trigger('mouseup')
           .then(waitToRenderAllShapes)
           .then(() => {
-            const task2Xml = '<bpmn:task id="node_4" name="Form Task" pm:assignment="requester" />';
-            const boundaryEventOnTask2Xml = '<bpmn:boundaryEvent id="node_11" name="Boundary Timer Event" attachedToRef="node_4">';
+            const task2Xml = '<bpmn:task id="node_12" name="Form Task" pm:assignment="requester" />';
+            const boundaryEventOnTask2Xml = '<bpmn:boundaryEvent id="node_11" name="Boundary Timer Event" attachedToRef="node_12">';
 
             assertDownloadedXmlContainsExpected(task2Xml, boundaryEventOnTask2Xml);
             assertDownloadedXmlDoesNotContainExpected(boundaryEventOnTaskXml);
@@ -223,10 +222,7 @@ describe('Boundary Timer Event', { scrollBehavior: false }, () => {
     });
   });
 
-  /**
-   * TODO: This test was skipped due to a bug in the boundary event move
-   */
-  it.skip('keeps Boundary Timer Event in correct position when dragging and dropping', () => {
+  it('keeps Boundary Timer Event in correct position when dragging and dropping', () => {
     const taskPosition = { x: 300, y: 300 };
     clickAndDropElement(nodeTypes.task, taskPosition);
     setBoundaryEvent(nodeTypes.boundaryTimerEvent, taskPosition);
@@ -241,7 +237,9 @@ describe('Boundary Timer Event', { scrollBehavior: false }, () => {
     getPositionInPaperCoords(task2Position).then(newPosition => {
       cy.get(boundaryTimerEventSelector).then($boundaryEvent => {
         cy.wrap($boundaryEvent)
+          .trigger('mouseover')
           .trigger('mousedown', { which: 1, force: true })
+          .trigger('mousemove', { clientX: newPosition.x, clientY: newPosition.y, force: true })
           .trigger('mousemove', { clientX: newPosition.x, clientY: newPosition.y, force: true })
           .trigger('mouseup')
           .then(waitToRenderAllShapes)

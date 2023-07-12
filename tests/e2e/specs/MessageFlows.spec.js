@@ -21,13 +21,13 @@ describe('Message Flows', { scrollBehavior: false }, () => {
     const pool1Position = { x: 250, y: 250 };
     clickAndDropElement(nodeTypes.pool, pool1Position);
 
-    const pool2Position = { x: 250, y: 560 };
+    const pool2Position = { x: 250, y: 600 };
     clickAndDropElement(nodeTypes.pool, pool2Position);
 
     connectNodesWithFlow('generic-flow-button', pool1Position, pool2Position, 'top');
 
-    moveElement(pool1Position, 300, 300);
-    moveElement(pool1Position, 250, 250);
+    moveElement(pool1Position, 300, 300, nodeTypes.pool);
+    moveElement(pool1Position, 250, 250, nodeTypes.pool);
 
     const numberOfMessageFlowsAdded = 1;
     getElementAtPosition(pool2Position)
@@ -81,7 +81,7 @@ describe('Message Flows', { scrollBehavior: false }, () => {
     const taskPosition = { x: pool2Position.x + offset, y: pool2Position.y + offset };
     clickAndDropElement(nodeTypes.task, taskPosition);
 
-    connectNodesWithFlow('generic-flow-button', pool1Position, taskPosition);
+    connectNodesWithFlow('generic-flow-button', pool1Position, taskPosition, 'center', nodeTypes.pool);
 
     const numberOfMessageFlowsAdded = 1;
     getElementAtPosition(taskPosition)
