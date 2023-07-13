@@ -25,9 +25,6 @@ describe('Data Objects and Data Stores', () => {
     });
   });
 
-  /**
-   * TODO: the nodeTypes.dataStore was removed from this test
-   */
   [nodeTypes.dataObject].forEach(nodeType => {
     it(`can add data output association flows for ${nodeType}`, () => {
       clickAndDropElement(nodeType, dataPosition);

@@ -244,17 +244,6 @@ describe('Modeler', { scrollBehavior: false }, () => {
     });
   });
 
-  /**
-   * TODO: This test is flaky, it should be fixed
-   */
-  it.skip('holds element position after dragging canvas over panels', () => {
-    cy.get('.paper-container').trigger('mousedown');
-    cy.get('.ignore-pointer').should('have.length', 3);
-
-    cy.get('.paper-container').trigger('mouseup');
-    cy.get('.ignore-pointer').should('have.length', 0);
-  });
-
   it('check if process id is a valid QName', () => {
     toggleInspector();
     cy.get('.paper-container').click();
