@@ -137,14 +137,14 @@ describe('Undo/redo', { scrollBehavior: false }, () => {
 
     waitToRenderAllShapes();
 
-    cy.get(undoSelector)
-      .should('not.be.disabled')
-      .click({ force: true });
+    cy.get(undoSelector).should('not.be.disabled');
+    cy.get(undoSelector).click({ force: true });
 
+    cy.wait(500);
+
+    getElementAtPosition(startEventPosition, nodeTypes.startEvent).should('exist');
     waitToRenderAllShapes();
-
-    getElementAtPosition(startEventPosition).should('exist');
-    getElementAtPosition(startEventMoveToPosition).should('not.exist');
+    getElementAtPosition(startEventMoveToPosition, nodeTypes.startEvent).should('not.exist');
 
     const taskPosition1 = { x: 250, y: 400 };
     const taskPosition2 = { x: taskPosition1.x + 200, y: taskPosition1.y };
