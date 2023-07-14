@@ -138,9 +138,11 @@ describe('Undo/redo', { scrollBehavior: false }, () => {
     waitToRenderAllShapes();
 
     cy.get(undoSelector).should('not.be.disabled');
+    waitToRenderAllShapes();
+    cy.wait(1000);
     cy.get(undoSelector).click({ force: true });
 
-    cy.wait(500);
+    cy.wait(1000);
 
     getElementAtPosition(startEventPosition, nodeTypes.startEvent).should('exist');
     waitToRenderAllShapes();
