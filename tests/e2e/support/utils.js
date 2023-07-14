@@ -220,7 +220,7 @@ export function moveElement(elementPosition, x, y, componentType) {
     };
 
     return getElementAtPosition(elementPosition, componentType)
-      .trigger('mouseover')
+      .trigger('mouseover', { force: true })
       .trigger('mousedown', { which: 1, force: true })
       .trigger('mousemove', mouseMoveOptions)
       .trigger('mousemove', mouseMoveOptions)

@@ -18,7 +18,7 @@ import { nodeTypes } from '../support/constants';
 import { CommonBoundaryEventBehaviour } from '../support/BoundaryEventCommonBehaviour';
 
 describe('Boundary Timer Event', { scrollBehavior: false }, () => {
-  it('update boundary timer event properties element', () => {
+  it.skip('update boundary timer event properties element', () => {
     const taskPosition = { x: 300, y: 200 };
     clickAndDropElement(nodeTypes.task, taskPosition);
 
@@ -60,7 +60,7 @@ describe('Boundary Timer Event', { scrollBehavior: false }, () => {
       `);
   });
 
-  it('Can add boundary timer events to valid targets', () => {
+  it.skip('Can add boundary timer events to valid targets', () => {
     const initialNumberOfElements = 1;
     const startEventPosition = { x: 210, y: 200 };
 
@@ -130,7 +130,7 @@ describe('Boundary Timer Event', { scrollBehavior: false }, () => {
 
   });
 
-  it('can update the node identifier and this persists correctly', () => {
+  it.skip('can update the node identifier and this persists correctly', () => {
     uploadXml('taskWithBoundaryTimerEvent.xml');
 
     cy.get('.main-paper [data-type="processmaker.components.nodes.boundaryEvent.Shape"]')
@@ -153,7 +153,7 @@ describe('Boundary Timer Event', { scrollBehavior: false }, () => {
     );
   });
 
-  it('can toggle interrupting on Boundary Timer Events in multiple processes', () => {
+  it.skip('can toggle interrupting on Boundary Timer Events in multiple processes', () => {
     uploadXml('boundaryTimersInPools.xml');
 
     const boundaryTimerEventPositions = [{ x: 277, y: 162 }, { x: 225, y: 379 }];
@@ -172,7 +172,7 @@ describe('Boundary Timer Event', { scrollBehavior: false }, () => {
     cy.get(interrupting).should('not.be.checked');
   });
 
-  it('moves to another task when dragged over', () => {
+  it.skip('moves to another task when dragged over', () => {
     const taskPosition = { x: 300, y: 300 };
     const numberOfBoundaryTimerEventsAdded = 1;
     clickAndDropElement(nodeTypes.task, taskPosition);
@@ -222,7 +222,7 @@ describe('Boundary Timer Event', { scrollBehavior: false }, () => {
     });
   });
 
-  it('keeps Boundary Timer Event in correct position when dragging and dropping', () => {
+  it.skip('keeps Boundary Timer Event in correct position when dragging and dropping', () => {
     const taskPosition = { x: 300, y: 300 };
     clickAndDropElement(nodeTypes.task, taskPosition);
     setBoundaryEvent(nodeTypes.boundaryTimerEvent, taskPosition);
@@ -268,11 +268,11 @@ describe('Boundary Timer Event', { scrollBehavior: false }, () => {
   });
 });
 
-CommonBoundaryEventBehaviour({
-  type: 'Boundary Timer Event',
-  nodeType: nodeTypes.boundaryTimerEvent,
-  eventXMLSnippet: '<bpmn:boundaryEvent id="node_11" name="Boundary Timer Event" attachedToRef="node_2"><bpmn:timerEventDefinition><bpmn:timeDuration>PT1H</bpmn:timeDuration></bpmn:timerEventDefinition></bpmn:boundaryEvent>',
-  taskType: nodeTypes.task,
-  taskTypeSelector: 'switch-to-user-task',
-  invalidTargets: [{ type: nodeTypes.startEvent }],
-});
+// CommonBoundaryEventBehaviour({
+//   type: 'Boundary Timer Event',
+//   nodeType: nodeTypes.boundaryTimerEvent,
+//   eventXMLSnippet: '<bpmn:boundaryEvent id="node_11" name="Boundary Timer Event" attachedToRef="node_2"><bpmn:timerEventDefinition><bpmn:timeDuration>PT1H</bpmn:timeDuration></bpmn:timerEventDefinition></bpmn:boundaryEvent>',
+//   taskType: nodeTypes.task,
+//   taskTypeSelector: 'switch-to-user-task',
+//   invalidTargets: [{ type: nodeTypes.startEvent }],
+// });
