@@ -140,7 +140,7 @@ describe('Undo/redo', { scrollBehavior: false }, () => {
     cy.get(undoSelector).should('not.be.disabled');
     waitToRenderAllShapes();
     cy.wait(2000);
-    cy.get(undoSelector).click({ force: true });
+    cy.get(undoSelector).click();
 
     cy.wait(2000);
 
@@ -161,7 +161,7 @@ describe('Undo/redo', { scrollBehavior: false }, () => {
         moveElement($task, taskPosition3.x, taskPosition3.y);
       });
 
-    cy.get(undoSelector).click({ force: true });
+    cy.get(undoSelector).click();
 
     waitToRenderAllShapes();
 
